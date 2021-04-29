@@ -26,7 +26,7 @@ double g3(double x){
 }
 
 //Функция считает точку пересечения заданных фукций на отрезке
-//Необзодимо, чтобы функции были определены на отрезке
+//Необходимо, чтобы функции были определены на отрезке
 
 double root(double (*f)(double), double (*g)(double), double a, double b, double eps1) {
     double length = b - a;
