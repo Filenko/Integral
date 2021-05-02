@@ -21,23 +21,22 @@ double g2(double x) {
     return pow(x - 2, 3) - 1;
 }
 
-double g3(double x){
-    return -2*x + 8;
+double g3(double x) {
+    return -2 * x + 8;
 }
 
 //Функция считает точку пересечения заданных фукций на отрезке
 //Необходимо, чтобы функции были определены на отрезке
 
 double root(double (*f)(double), double (*g)(double), double a, double b, double eps1) {
-    double length = b - a;
     double m;
     double x_m;
     while (b - a > eps1) {
         m = (b - a) / 2;
         x_m = a + m;
         //printf("%f %f\n", f(a), f(x_m));
-        if (f(a) - g(a) >= 0 && f(x_m) - g(x_m) <= 0
-                || f(a) - g(a) <= 0 && f(x_m) - g(x_m) >= 0) {
+        if ( (f(a) - g(a) >= 0 && f(x_m) - g(x_m) <= 0)
+                || (f(a) - g(a) <= 0 && f(x_m) - g(x_m) >= 0) ) {
             b = x_m;
         }
         else {
@@ -50,7 +49,6 @@ double root(double (*f)(double), double (*g)(double), double a, double b, double
 //Считает определенный интеграл функции f от a до b
 //Необходимо, чтобы функция была определена на [a,b]
 double integral(double (*f)(double), double a, double b, double eps2) {
-    double x;
     int N = 10;
     double I1 = 0;
     double I2 = 0;
