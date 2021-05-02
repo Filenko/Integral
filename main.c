@@ -81,7 +81,7 @@ double integral(double (*f)(double), double a, double b, double eps2) {
 int main(void) {
 
     printf("This program calculates the definite integral and finds the intersection points of the functions.\n");
-    printf("Integral of the x^5 from 0 to 5: %f\n", integral(f1, 0, 5, 0.000001s));
+    printf("Integral of the x^5 from 0 to 5: %f\n", integral(f1, 0, 5, 0.000001));
     printf("WolframAlpha ans: 2604.16666666667\n");
     //WolframAlpha integral_0^5 x^5 dx = 15625/6≈2604.16666666667
     printf("Integral of the -1/x from 1 to 5: %f\n", integral(f2, 1, 5, 0.000001));
