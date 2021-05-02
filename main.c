@@ -10,7 +10,7 @@ double f2(double x) {
 }
 
 double f3(double x) {
-    return 0.35 * x * x - 0.95 * x + 2.7;
+    return sin(x) + cos(x)/3;
 }
 
 double g1(double x) {
@@ -25,8 +25,9 @@ double g3(double x) {
     return -2 * x + 8;
 }
 
-//Функция считает точку пересечения заданных фукций на отрезке
-//Необходимо, чтобы функции были определены на отрезке
+// Find root of f(x) == g(x) in [a, b]
+// f and g must be determine on [a, b]
+// f and g should have only one root
 
 double root(double (*f)(double), double (*g)(double), double a, double b, double eps1) {
     double m;
@@ -46,8 +47,8 @@ double root(double (*f)(double), double (*g)(double), double a, double b, double
     return x_m;
 }
 
-//Считает определенный интеграл функции f от a до b
-//Необходимо, чтобы функция была определена на [a,b]
+// Find definite integral of the function F from a to b
+// f must be determine on [a, b]
 double integral(double (*f)(double), double a, double b, double eps2) {
     int N = 10;
     double I1 = 0;
@@ -63,7 +64,7 @@ double integral(double (*f)(double), double a, double b, double eps2) {
         I2 += f(a + h * (i + 0.5));
     }
     I2 *= h;
-    //Вычисляем интеграл до заданной точности, пользуясь правилом Рунга
+    //Сalculating the integral up to a given accuracy using the Rung's rule
     while (fabs(I2 - I1) > 3 * eps2) {
         I1 = I2;
         N *= 2;
@@ -79,18 +80,25 @@ double integral(double (*f)(double), double a, double b, double eps2) {
 
 int main(void) {
 
-
-    printf("%f\n", integral(f1, 0, 5, 0.00001));
+    printf("This program calculates the definite integral and finds the intersection points of the functions.\n");
+    printf("Integral of the x^5 from 0 to 5: %f\n", integral(f1, 0, 5, 0.000001s));
+    printf("WolframAlpha ans: 2604.16666666667\n");
     //WolframAlpha integral_0^5 x^5 dx = 15625/6≈2604.16666666667
-    printf("%f\n", integral(f2, 1, 5, 0.00001));
+    printf("Integral of the -1/x from 1 to 5: %f\n", integral(f2, 1, 5, 0.000001));
+    printf("WolframAlpha ans: -1.60943791243410\n");
     //WolframAlpha "integral -1/x from 1 to 5" ans : -1.60943791243410
-    printf("%f\n", integral(f3, 0, 10, 0.0001));
-    //WolframAlpha integral_0^10 (0.35 x^2 - 0.95 x + 2.7) dx = 96.1667
-    printf("%f\n", root(f1, g1, 0, 5, 0.0001));
+    printf("Integral of the sin(x) + cos(x)/3 from 0 to 10: %f\n", integral(f3, 0, 10, 0.000001));
+    printf("WolframAlpha ans: 1.65773115878000\n");
+    //WolframAlpha integral_0^10 (sin(x) + cos(x)/3) dx ≈1.65773115878000
+    printf("Root of x^5 = x+3 on [0, 5] : %f\n", root(f1, g1, 0, 5, 0.000001));
+    printf("WolframAlpha ans : x≈1.3412935\n");
     //WolframAlpha x≈1.3412935
-    printf("%f\n", root(f2, g2, 1, 5, 0.0001));
+    printf("Root of -1/x = (x-2)^3 - 1 on [1, 5]: %f\n", root(f2, g2, 1, 5, 0.000001));
+    printf("WolframAlpha ans : x≈2.8668\n");
     //WolframAlpha x≈2.8668
-    printf("%f\n", root(f3, g3, 1, 5, 0.0001));
-    //WolframAlpha x≈2.67047
+
+    printf("Root of sin(x) + cos(x)/3 = -2*x + 8 on [1, 5] : %f\n", root(f3, g3, 1, 5, 0.000001));
+    printf("WolframAlpha ans : x≈4.5224727950649938504\n");
+    //WolframAlpha x≈4.5224727950649938504
     return 0;
 }
