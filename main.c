@@ -31,7 +31,7 @@ double g3(double x) {
 
 double root(double (*f)(double), double (*g)(double), double a, double b, double eps1) {
     double m;
-    double x_m;
+    double x_m = a;
     while (b - a > eps1) {
         m = (b - a) / 2;
         x_m = a + m;
