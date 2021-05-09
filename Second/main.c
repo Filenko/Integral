@@ -105,14 +105,14 @@ int main(int argc, char** argv) {
     }
 
     counter = 0;
-    double x1 = root(f1, f3, 1, 5, 0.000001);
-    double x2 = root(f2, f3, 1, 10, 0.000001);
-    double x3 = root(f1, f2, 0, 10, 0.000001);
+    double x1 = root(f1, f3, 1, 5, 0.00001);
+    double x2 = root(f2, f3, 1, 10, 0.00001);
+    double x3 = root(f1, f2, 0, 10, 0.00001);
     double tmp_a = 0.0;
     double tmp_b = 0.0;
     double tmp_eps = 0.0;
     double ans = 0.0;
-    double Sum = integral(f1, x1, x3, 0.000001) - integral(f2, x2, x3, 0.000001) - integral(f3, x1, x2, 0.0000015);
+    double Sum = integral(f1, x1, x3, 0.00001) - integral(f2, x2, x3, 0.00001) - integral(f3, x1, x2, 0.00001);
     printf("Area of the figure: %lf \n\n", Sum);
     double (*func_root[3])(double);
     double (*func_integral[3])(double);
@@ -135,15 +135,15 @@ int main(int argc, char** argv) {
             int tmp_all = 0;
             printf("Iterations:\n");
             counter = 0;
-            root(f1, f3, 1, 5, 0.000001);
+            root(f1, f3, 1, 5, 0.00001);
             tmp_all += counter;
             printf("f1 and f3 iterations: %d\n", counter);
             counter = 0;
-            root(f2, f3, 1, 10, 0.000001);
+            root(f2, f3, 1, 10, 0.00001);
             tmp_all += counter;
             printf("f2 and f3 iterations: %d\n", counter);
             counter = 0;
-            root(f1, f2, 0, 10, 0.000001);
+            root(f1, f2, 0, 10, 0.00001);
             tmp_all += counter;
             printf("f1 and f2 iterations: %d\n", counter);
             printf("Sum is : %d\n\n", tmp_all);

@@ -109,24 +109,24 @@ int main(void) {
 
     printf("This program calculates the definite integral and finds the intersection points of the functions.\n");
     printf("To calculate integral program uses rectangle method, to find root program uses bisection method.\n");
-    
+
     printf("Integral of the x^5 from 0 to 5: ");
-    check_integral(f1, 0, 5, 0.000001, 2604.16666666667);
+    check_integral(f1, 0, 5, 0.00001, 2604.16666666667);
 
     printf("Integral of the -1/x from 1 to 5: ");
-    check_integral(f2, 1, 5, 0.000001, -1.60943791243410);
+    check_integral(f2, 1, 5, 0.00001, -1.60943791243410);
 
     printf("Integral of the sin(x) + cos(x)/3 from 0 to 10: ");
-    check_integral(f3, 0, 10, 0.000001, 1.65773115878000);
+    check_integral(f3, 0, 10, 0.00001, 1.65773115878000);
 
     printf("Root of x^5 = x+3 on [0, 5] : ");
-    check_root(f1, g1, 0, 5, 0.000001, 1.3412935);
+    check_root(f1, g1, 0, 5, 0.00001, 1.3412935);
 
     printf("Root of -1/x = (x-2)^3 - 1 on [1, 5]: ");
-    check_root(f2, g2, 1, 5, 0.000001, 2.86676039917386);
+    check_root(f2, g2, 1, 5, 0.00001, 2.86676039917386);
 
     printf("Root of sin(x) + cos(x)/3 = -2*x + 8 on [1, 5]: ");
-    check_root(f3, g3, 1, 5, 0.000001, 4.5224727950649938504);
+    check_root(f3, g3, 1, 5, 0.00001, 4.5224727950649938504);
 
     return 0;
 }
