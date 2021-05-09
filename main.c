@@ -106,8 +106,10 @@ void check_root(double (*f)(double), double (*g)(double), double a, double b, do
 
 int main(void) {
 
+
     printf("This program calculates the definite integral and finds the intersection points of the functions.\n");
-    printf("To calculate integral program uses rectangle method, to find root program uses bisection method. To achieve the accuracy of the integral calculation, the Runge rule is used. \n");
+    printf("To calculate integral program uses rectangle method, to find root program uses bisection method.\n");
+    
     printf("Integral of the x^5 from 0 to 5: ");
     check_integral(f1, 0, 5, 0.000001, 2604.16666666667);
 

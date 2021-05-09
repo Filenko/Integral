@@ -1,2 +1,2 @@
 Compile: main.c
-	gcc -o a main.c
+	gcc -o main main.c -lm -Wall
