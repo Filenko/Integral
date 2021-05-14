@@ -88,8 +88,8 @@ void print_help() {
     printf("HELP:\n");
     printf("-intersection  -  Print the coordinates of the intersection points of the functions\n\n");
     printf("-iterations - Print the number of iterations when looking for intersection points of the functions\n\n");
-    printf("-test_root - Calculate and print the intersection point of functions with given accuracy. \nUser input: after -test_root program is waiting for 5 numbers: first function (from 1 to 3), second function (from 1 to 3), a, b - segment coordinates (a must be <= b), eps - calculation accuracy.\n\n");
-    printf("-test_integral - Calculate and print the definite integral of the function a on the segment [a, b] with given accuracy. \nUser input: after -test_integral program is waiting for 4 numbers: function (from 1 to 3), a, b - segment coordinates (a must be <= b), eps - calculation accuracy\n\n");
+    printf("-test_root - Calculate and print the intersection point of functions with given accuracy. \nUser input: after -test_root program is waiting for 5 numbers (for example -test_root 1 2 -2 3 0.0001): first function (from 1 to 3), second function (from 1 to 3), a, b - segment coordinates (a must be <= b), eps - calculation accuracy.\n\n");
+    printf("-test_integral - Calculate and print the definite integral of the function a on the segment [a, b] with given accuracy. \nUser input: after -test_integral program is waiting for 4 numbers (for example -test_integral 1 -1 1 0.001): function (from 1 to 3), a, b - segment coordinates (a must be <= b), eps - calculation accuracy\n\n");
     printf("-v to see how program works\n");
     printf("Function for root testing 1: 0.5\n");
     printf("Function for root testing 2: cos(x)\n");
@@ -105,6 +105,11 @@ int argument_check(double x, char * s) {
     int len = strlen(s);
     for (int i = 0; i < len; i++) {
         if ( !(s[i] >= '0' && s[i] <= '9') && s[i] != '-' && s[i] != '.') {
+            printf("Invalid argument!\n\n");
+            print_help();
+            return 0;
+        }
+        if(s[i] == '-' && i != 0){
             printf("Invalid argument!\n\n");
             print_help();
             return 0;
