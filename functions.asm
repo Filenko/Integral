@@ -21,7 +21,6 @@ fld qword[three]
 fmulp
 leave
 ret
-    
 global f2 ;2.5 * x - 9.5
 f2:
 push ebp
@@ -34,7 +33,6 @@ fld qword[nine_half]
 fsubp
 leave
 ret
-    
 global f3
 f3: ;5 / x
 push ebp
