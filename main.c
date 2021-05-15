@@ -96,27 +96,35 @@ void print_help() {
     printf("Function for root testing 3: ln(x) - 1\n");
     printf("\n");
     printf("Function for integral testing 1: x\n");
-    printf("Function for integral testing 1: x^2 + 2\n");
-    printf("Function for integral testing 1: sqrt(x)\n");
-    printf("1\n");
+    printf("Function for integral testing 2: x^2 + 2\n");
+    printf("Function for integral testing 3: sqrt(x)\n");
 }
 
-int argument_check(double x, char * s) {
+int argument_check(double x, char * s, int num) {
     int len = strlen(s);
+    int point_flag = 0;
     for (int i = 0; i < len; i++) {
         if ( !(s[i] >= '0' && s[i] <= '9') && s[i] != '-' && s[i] != '.') {
-            printf("Invalid argument!\n\n");
+            printf("Invalid value of %d argument!\n\n", num);
             print_help();
             return 0;
         }
-        if(s[i] == '-' && i != 0){
-            printf("Invalid argument!\n\n");
+        if (s[i] == '-' && i != 0) {
+            printf("Invalid value of %d argument!\n\n", num);
             print_help();
             return 0;
+        }
+        if (s[i] == '.') {
+            if (point_flag == 1) {
+                printf("Invalid value of %d argument!\n\n", num);
+                print_help();
+                return 0;
+            }
+            point_flag = 1;
         }
     }
     if ((fabs(x) - 0.0 <= 0.0000001) && s[0] != '0') {
-        printf("Invalid argument.\n\n");
+        printf("Invalid value of %d argument!\n\n", num);
         print_help();
         return 0;
     }
@@ -124,8 +132,9 @@ int argument_check(double x, char * s) {
 }
 
 int main(int argc, char** argv) {
-
+    double eps = 0.00001;
     int test_flag = 0;
+    int v_flag = 0;
     for (int i = 1; i < argc; ++i) {
         if (strcmp(argv[i], "-help") == 0) {
             print_help();
@@ -135,9 +144,16 @@ int main(int argc, char** argv) {
             test_flag = 1;
         }
         if (strcmp(argv[i], "-v") == 0) {
+            if (v_flag == 1) {
+                continue;
+            }
             printf("The program finds the area of ​​a curve limited by three functions with an accuracy of 0.001\n");
             printf("To calculate integral program uses rectangle method, to find intersection points of functions program uses bisection method.\n");
-            return 0;
+            printf("Function 1:  3*(0.5 / (x + 1) + 1)\n");
+            printf("Function 2:  2.5x − 9.5\n");
+            printf("Function 3:  5/x\n");
+            printf("\n\n");
+            v_flag = 1;
         }
     }
 
@@ -145,35 +161,57 @@ int main(int argc, char** argv) {
         int counter1 = 0;
         int counter2 = 0;
         int counter3 = 0;
-        double x1 = root(f1, f3, 1, 5, 0.00001);
+        double x1 = root(f1, f3, 1, 5, eps);
         counter1 = counter;
-        double x2 = root(f2, f3, 1, 10, 0.00001);
+        double x2 = root(f2, f3, 1, 10, eps);
         counter2 = counter - counter1;
-        double x3 = root(f1, f2, 0, 10, 0.00001);
+        double x3 = root(f1, f2, 0, 10, eps);
         counter3 = counter - counter1 - counter2;
 
-        double Sum = integral(f1, x1, x3, 0.00001) - integral(f2, x2, x3, 0.00001) - integral(f3, x1, x2, 0.00001);
+        double Sum = integral(f1, x1, x3, eps) - integral(f2, x2, x3, eps) - integral(f3, x1, x2, eps);
         printf("Area of the figure: %lf \n\n", Sum);
-
+        int intersection_flag = 0;
+        int iterations_flag = 0;
         for (int i = 1; i < argc; i++) {
             if (strcmp(argv[i], "-intersection") == 0) {
+                if (intersection_flag == 1) {
+                    continue;
+                }
                 printf("Intersections: \n");
                 printf("intersection point of f1 and f3: %lf\n", x1);
                 printf("intersection point of f2 and f3: %lf\n", x2);
                 printf("intersection point of f1 and f2: %lf\n", x3);
                 printf("\n\n");
+                intersection_flag = 1;
             }
             else if (strcmp(argv[i], "-iterations") == 0) {
+                if (iterations_flag == 1) {
+                    continue;
+                }
                 printf("Iterations:\n");
                 printf("f1 and f3 iterations: %d\n", counter1);
                 printf("f2 and f3 iterations: %d\n", counter2);
                 printf("f1 and f2 iterations: %d\n", counter3);
                 printf("Sum is : %d\n\n", counter);
                 printf("\n\n");
+                iterations_flag = 1;
+            }
+            else if (strcmp(argv[i], "-v") == 0) {
+                if (v_flag == 1) {
+                    continue;
+                }
+                printf("The program finds the area of ​​a curve limited by three functions with an accuracy of 0.001\n");
+                printf("To calculate integral program uses rectangle method, to find intersection points of functions program uses bisection method.\n");
+                printf("Function 1:  3*(0.5 / (x + 1) + 1)\n");
+                printf("Function 2:  2.5x − 9.5\n");
+                printf("Function 3:  5/x\n");
+                printf("\n\n");
+                v_flag = 1;
             }
             else {
-                printf("Invalid argument: %s\n\n", argv[i]);
+                printf("Invalid argument: '%s'\n\n", argv[i]);
                 print_help();
+                return 0;
             }
         }
         return 0;
@@ -199,24 +237,24 @@ int main(int argc, char** argv) {
             printf("Root test: \n");
             //-test-root 1 1 2 0.001
             if (i + 5 >= argc) {
-                printf("Invalid argument!\n\n");
+                printf("Too few arguments!\n\n");
                 print_help();
                 return 0;
             }
             first_f = atof(argv[i + 1]);
-            if (argument_check(first_f, argv[i + 1]) == 0) {
+            if (argument_check(first_f, argv[i + 1], 1) == 0) {
                 return 0;
             }
             second_f = atof(argv[i + 2]);
-            if (argument_check(second_f, argv[i + 2]) == 0) {
+            if (argument_check(second_f, argv[i + 2], 2) == 0) {
                 return 0;
             }
             tmp_a = atof(argv[i + 3]);
-            if (argument_check(tmp_a, argv[i + 3]) == 0) {
+            if (argument_check(tmp_a, argv[i + 3], 3) == 0) {
                 return 0;
             }
             tmp_b = atof(argv[i + 4]);
-            if (argument_check(tmp_b, argv[i + 4]) == 0) {
+            if (argument_check(tmp_b, argv[i + 4], 4) == 0) {
                 return 0;
             }
             if (tmp_a - tmp_b > 0.000001) {
@@ -224,7 +262,22 @@ int main(int argc, char** argv) {
                 return 0;
             }
             tmp_eps = atof(argv[i + 5]);
-            if (argument_check(tmp_eps, argv[i + 5]) == 0) {
+            if (argument_check(tmp_eps, argv[i + 5], 5) == 0) {
+                return 0;
+            }
+            if (first_f > 3) {
+                printf("Invalid value of 1 argument!\n\n");
+                print_help();
+                return 0;
+            }
+            if (second_f > 3) {
+                printf("Invalid value of 2 argument!\n\n");
+                print_help();
+                return 0;
+            }
+            if (tmp_eps < 0.000000001) {
+                printf("Invalid value of 5 argument!\n\n");
+                print_help();
                 return 0;
             }
             double (*ff1)(double) = func_root[first_f - 1];
@@ -238,20 +291,20 @@ int main(int argc, char** argv) {
             int ff = 0;
             printf("Integral test: \n");
             if (i + 4 >= argc) {
-                printf("Invalid argument!\n\n");
+                printf("Too few arguments!\n\n");
                 print_help();
                 return 0;
             }
             ff = atof(argv[i + 1]);
-            if (argument_check(ff, argv[i + 1]) == 0) {
+            if (argument_check(ff, argv[i + 1], 1) == 0) {
                 return 0;
             }
             tmp_a = atof(argv[i + 2]);
-            if (argument_check(tmp_a, argv[i + 2]) == 0) {
+            if (argument_check(tmp_a, argv[i + 2], 2) == 0) {
                 return 0;
             }
             tmp_b = atof(argv[i + 3]);
-            if (argument_check(tmp_b, argv[i + 3]) == 0) {
+            if (argument_check(tmp_b, argv[i + 3], 3) == 0) {
                 return 0;
             }
             if (tmp_a - tmp_b > 0.000001) {
@@ -259,7 +312,17 @@ int main(int argc, char** argv) {
                 return 0;
             }
             tmp_eps = atof(argv[i + 4]);
-            if (argument_check(tmp_eps, argv[i + 4]) == 0) {
+            if (argument_check(tmp_eps, argv[i + 4], 4) == 0) {
+                return 0;
+            }
+            if (ff > 3) {
+                printf("Invalid value of 1 argument!\n\n");
+                print_help();
+                return 0;
+            }
+            if (tmp_eps < 0.000000001) {
+                printf("Invalid value of 4 argument!\n\n");
+                print_help();
                 return 0;
             }
             ans = integral(func_integral[ff - 1], tmp_a, tmp_b, tmp_eps);
@@ -268,8 +331,9 @@ int main(int argc, char** argv) {
             i += 4;
         }
         else {
-            printf("Invalid argument: %s\n\n", argv[i]);
+            printf("Invalid argument: '%s'\n\n", argv[i]);
             print_help();
+            return 0;
         }
     }
     return 0;
