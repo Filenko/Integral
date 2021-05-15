@@ -1,7 +1,7 @@
 .PHONY: all clean
 all: main
 clean:
-	rm main main.o functions.o
+	rm main.o functions.o
 main: main.o functions.o
 	gcc -m32 -o main main.o functions.o -lm
 main.o: main.c
