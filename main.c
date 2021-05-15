@@ -3,9 +3,19 @@
 #include <string.h>
 
 double atof(char * s);
-extern double f1(double x);
+/*extern double f1(double x);
 extern double f2(double x);
-extern double f3(double x);
+extern double f3(double x);*/
+
+double f1(double x) {
+    return x;
+}
+double f2(double x) {
+    return -x;
+}
+double f3(double x) {
+    return pow(x, 2);
+}
 
 double root_f1(double x) {
     return x - x + 0.5;
@@ -232,10 +242,9 @@ int main(int argc, char** argv) {
 
     for (int i = 1; i < argc; ++i) {
         if (strcmp(argv[i], "-test_root") == 0) {
-            int first_f = 0;
-            int second_f = 0;
+            double first_f = 0;
+            double second_f = 0;
             printf("Root test: \n");
-            //-test-root 1 1 2 0.001
             if (i + 5 >= argc) {
                 printf("Too few arguments!\n\n");
                 print_help();
@@ -257,7 +266,7 @@ int main(int argc, char** argv) {
             if (argument_check(tmp_b, argv[i + 4], 4) == 0) {
                 return 0;
             }
-            if (tmp_a - tmp_b > 0.000001) {
+            if (tmp_a - tmp_b > 0.0000001) {
                 printf("a must be less/equal than b!\n");
                 return 0;
             }
@@ -265,12 +274,12 @@ int main(int argc, char** argv) {
             if (argument_check(tmp_eps, argv[i + 5], 5) == 0) {
                 return 0;
             }
-            if (first_f > 3) {
+            if (first_f - 3 > 0.000000001 || (int)first_f != first_f) {
                 printf("Invalid value of 1 argument!\n\n");
                 print_help();
                 return 0;
             }
-            if (second_f > 3) {
+            if (second_f - 3 > 0.000000001 || (int)second_f != second_f) {
                 printf("Invalid value of 2 argument!\n\n");
                 print_help();
                 return 0;
@@ -280,8 +289,8 @@ int main(int argc, char** argv) {
                 print_help();
                 return 0;
             }
-            double (*ff1)(double) = func_root[first_f - 1];
-            double (*ff2)(double) = func_root[second_f - 1];
+            double (*ff1)(double) = func_root[(int)first_f - 1];
+            double (*ff2)(double) = func_root[(int)second_f - 1];
             ans = root(ff1, ff2, tmp_a, tmp_b, tmp_eps);
             printf("Root is %lf\n", ans);
             printf("\n\n");
@@ -315,7 +324,7 @@ int main(int argc, char** argv) {
             if (argument_check(tmp_eps, argv[i + 4], 4) == 0) {
                 return 0;
             }
-            if (ff > 3) {
+            if (ff > 3 || (int)ff != ff) {
                 printf("Invalid value of 1 argument!\n\n");
                 print_help();
                 return 0;
