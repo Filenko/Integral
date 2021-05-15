@@ -3,19 +3,9 @@
 #include <string.h>
 
 double atof(char * s);
-/*extern double f1(double x);
+extern double f1(double x);
 extern double f2(double x);
-extern double f3(double x);*/
-
-double f1(double x) {
-    return x;
-}
-double f2(double x) {
-    return -x;
-}
-double f3(double x) {
-    return pow(x, 2);
-}
+extern double f3(double x);
 
 double root_f1(double x) {
     return x - x + 0.5;
