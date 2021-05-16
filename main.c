@@ -264,12 +264,12 @@ int main(int argc, char** argv) {
             if (argument_check(tmp_eps, argv[i + 5], 5) == 0) {
                 return 0;
             }
-            if (first_f - 3 > 0.000000001 || (int)first_f != first_f) {
+            if (first_f < 1 || first_f - 3 > 0.000000001 || (int)first_f != first_f) {
                 printf("Invalid value of 1 argument!\n\n");
                 print_help();
                 return 0;
             }
-            if (second_f - 3 > 0.000000001 || (int)second_f != second_f) {
+            if (first_f < 1 || second_f - 3 > 0.000000001 || (int)second_f != second_f) {
                 printf("Invalid value of 2 argument!\n\n");
                 print_help();
                 return 0;
