@@ -169,7 +169,7 @@ int main(int argc, char** argv) {
         counter3 = counter - counter1 - counter2;
 
         double Sum = integral(f1, x1, x3, eps) - integral(f2, x2, x3, eps) - integral(f3, x1, x2, eps);
-        printf("Area of the figure: %lf \n\n", Sum);
+        printf("Area of the figure: %lf\n\n", Sum);
         int intersection_flag = 0;
         int iterations_flag = 0;
         for (int i = 1; i < argc; i++) {
