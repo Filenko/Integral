@@ -314,7 +314,7 @@ int main(int argc, char** argv) {
             if (argument_check(tmp_eps, argv[i + 4], 4) == 0) {
                 return 0;
             }
-            if (ff > 3 || (int)ff != ff) {
+            if (ff < 1 || ff > 3 || (int)ff != ff) {
                 printf("Invalid value of 1 argument!\n\n");
                 print_help();
                 return 0;
